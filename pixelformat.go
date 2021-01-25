@@ -55,6 +55,7 @@ const (
 //    a := (pixel >> alpha_shift) & alpha_mask
 //
 type PixelFormat struct {
+	Depth      uint8 // Total bit count for each pixel.
 	RedBits    uint8 // Bit count for the red channel.
 	RedShift   uint8 // Shift offset for the red channel.
 	GreenBits  uint8 // Bit count for the green channel.
@@ -67,7 +68,7 @@ type PixelFormat struct {
 
 // Stride returns the width, in bytes, for a single pixel.
 func (p PixelFormat) Stride() int {
-	return int(math.Ceil(float64(p.RedBits+p.GreenBits+p.BlueBits+p.AlphaBits) / 8))
+	return int(math.Ceil(float64(p.Depth) / 8))
 }
 
 // Type returns an integer constant from the PF_XXX list, which
